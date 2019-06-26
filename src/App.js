@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import AceEditor from "react-ace";
+
+import "brace/mode/html";
+import "brace/mode/javascript";
+import "brace/theme/monokai";
 
 function App() {
   const [method, setMethod] = useState("get");
@@ -38,29 +43,53 @@ function App() {
       <hr />
       <h2>Step 1: display the form</h2>
       <div className="row row--3">
-        <pre className="text-editor">
-          {`
-// File app.js
+        {/* <AceEditor
+          mode="java"
+          theme="github"
+          onChange={onChange}
+          name="UNIQUE_ID_OF_DIV"
+          editorProps={{ $blockScrolling: true }}
+        /> */}
+        <AceEditor
+          width="100%"
+          mode="javascript"
+          theme="monokai"
+          maxLines={30}
+          fontSize={14}
+          showPrintMargin={false}
+          showGutter={true}
+          readOnly={true}
+          highlightActiveLine={false}
+          tabSize={2}
+          value={`// File app.js
 // ...
 
 app.get("/", (req,res,next) => {
   res.render("index")
 })
 
-// ...
-        `}
-        </pre>
-        <pre className="text-editor">
-          {`
-{{!-- File views/index.hbs --}}
+// ...`}
+        />
+        
+        <AceEditor
+          width="100%"
+          mode="html"
+          theme="monokai"
+          maxLines={30}
+          fontSize={14}
+          showPrintMargin={false}
+          showGutter={true}
+          readOnly={true}
+          highlightActiveLine={false}
+          tabSize={2}
+          value={`{{!-- File views/index.hbs --}}
 
 <form action="/${values[0]}" method="${method.toUpperCase()}">
   <input type="text" name="${values[1]}" /><br />
   <input type="text" name="${values[2]}" /><br />
   <button>Submit</button>
-<form>
-        `}
-        </pre>
+</form>`}
+        />
         <div className="browser">
           <div className="browser__header">
             <div className="browser__icon browser__icon--red" />
@@ -94,9 +123,19 @@ app.get("/", (req,res,next) => {
       <hr />
       <h2>Step 2: handle the form submission</h2>
       <div className="row row--3">
-        <pre className="text-editor">
-          {`
-// File app.js
+
+      <AceEditor
+          width="100%"
+          mode="javascript"
+          theme="monokai"
+          maxLines={30}
+          fontSize={14}
+          showPrintMargin={false}
+          showGutter={true}
+          readOnly={true}
+          highlightActiveLine={false}
+          tabSize={2}
+          value={`// File app.js
 // ...
 
 app.${method}("/${values[0]}", (req,res,next) => {
@@ -112,21 +151,30 @@ app.${method}("/${values[0]}", (req,res,next) => {
   })
 })
 
-// ...
-        `}
-        </pre>
+// ...`}
+        />
 
-        <pre className="text-editor">
-          {`
-{{!-- File views/result.hbs --}}
+
+        <AceEditor
+          width="100%"
+          mode="html"
+          theme="monokai"
+          maxLines={30}
+          fontSize={14}
+          showPrintMargin={false}
+          showGutter={true}
+          readOnly={true}
+          highlightActiveLine={false}
+          tabSize={2}
+          value={`{{!-- File views/result.hbs --}}
 
 You typed 2 values: 
 <ul>
   <li>{{${values[5]}}}</li>
   <li>{{${values[6]}}}</li>
-</ul>
-        `}
-        </pre>
+</ul>`}
+        />
+      
 
         <div className="browser">
           <div className="browser__header">
