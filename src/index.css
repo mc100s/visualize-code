@@ -7,7 +7,88 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+code, pre {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 0.8em;
+}
+
+
+.text-editor {
+  border: 1px solid black;
+  padding: 0 10px;
+  /* max-width: 300px; */
+  white-space: pre-wrap;
+}
+
+.browser {
+  border: 2px solid #e0e0e0;
+  border-radius: 5px;
+}
+
+.browser__header {
+  height: 30px;
+  background-color: #e0e0e0;
+  display: flex;
+}
+
+.browser__icon {
+  background-color: #111;
+  height: 14px;
+  width: 14px;
+  margin: 8px 0 8px 8px;
+  border-radius: 14px;
+}
+.browser__icon--red {
+  background-color: rgb(224, 50, 50);
+}
+.browser__icon--yellow {
+  background-color: rgb(248, 206, 17);
+}
+.browser__icon--green {
+  background-color: rgb(74, 201, 15);
+}
+.browser__content {
+  padding: 10px;
+}
+
+.browser__sub-header {
+  border-bottom: 2px solid #e0e0e0;
+}
+.browser_link {
+  border-radius: 100px;
+  border: 0;
+  background-color: #ececec;
+  height: 20px;
+  padding: 0px 10px;
+  margin: 5px auto;
+  width: calc(100% - 40px);
+  display: block;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -10px;
+}
+
+.row > * {
+  margin: 10px;
+  flex-grow: 1;
+}
+
+.row--3 > * {
+  max-width: 33.3%;
+}
+
+
+@media (max-width: 800px) {
+  .row--3 > * {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+
+.App {
+  margin: 10px;
 }
