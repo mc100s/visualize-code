@@ -12,49 +12,66 @@ code, pre {
   font-size: 0.8em;
 }
 
-
-.text-editor {
-  border: 1px solid black;
-  padding: 0 10px;
-  /* max-width: 300px; */
-  white-space: pre-wrap;
+hr {
+  margin: 40px 0;
+  border: 0px solid black;
 }
 
-.browser {
+
+.editor {
+  border: 1px solid black;
+  padding: 10px;
+  /* max-width: 300px; */
+  /* white-space: pre-wrap; */
+  overflow-y: scroll;
+}
+
+
+
+.editor__input {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  display: inline;
+  font-weight: bold;
+  border: 0px solid #eee;
+  font-size: 1em;
+  text-align: center;
+}
+
+.window {
   border: 2px solid #e0e0e0;
   border-radius: 5px;
 }
 
-.browser__header {
+.window__header {
   height: 30px;
   background-color: #e0e0e0;
   display: flex;
 }
 
-.browser__icon {
+.window__icon {
   background-color: #111;
   height: 14px;
   width: 14px;
   margin: 8px 0 8px 8px;
   border-radius: 14px;
 }
-.browser__icon--red {
+.window__icon--red {
   background-color: rgb(224, 50, 50);
 }
-.browser__icon--yellow {
+.window__icon--yellow {
   background-color: rgb(248, 206, 17);
 }
-.browser__icon--green {
+.window__icon--green {
   background-color: rgb(74, 201, 15);
 }
-.browser__content {
+.window__content {
   padding: 10px;
 }
 
-.browser__sub-header {
+.window__sub-header {
   border-bottom: 2px solid #e0e0e0;
 }
-.browser_link {
+.window_link {
   border-radius: 100px;
   border: 0;
   background-color: #ececec;
@@ -63,6 +80,26 @@ code, pre {
   margin: 5px auto;
   width: calc(100% - 40px);
   display: block;
+}
+
+.window--text-editor{
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 0.8em;
+  white-space: pre;
+}
+
+.window__content--text-editor {
+  overflow-y: scroll;
+}
+
+.window__filename {
+  margin: 5px 10px 0 10px;
+  padding: 0 12px;
+  border-radius: 5px 5px 0 0;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  /* TODO */
 }
 
 .row {

@@ -4,29 +4,71 @@ import Editor from "./Editor";
 
 function App() {
   const [method, setMethod] = useState("get");
-  const [values, setValues] = useState([
+
+  let initialValues1 = [
     "target",
     "favoriteFruit",
     "favoriteVeg",
     "apple",
     "carrot",
     "x",
-    "y"
-  ]);
+    "y",
+    "index",
+    "result",
+    "text"
+  ];
+  let initialValues2 = [
+    "login",
+    "username",
+    "password",
+    "steve",
+    "jobs",
+    "username",
+    "password",
+    "index",
+    "login",
+    "password"
+  ];
+  const [values, setValues] = useState(initialValues2);
+  // When iValueSelected is equal to 42, then the values[42] is selected (red)
+  const [iValueSelected, setIValueSelected] = useState(null);
 
   function handleChange(newValue, i) {
     setValues(values.map((value, j) => (i === j ? newValue : value)));
+  }
+
+  function handleSelect(i) {
+    setIValueSelected(i);
+  }
+
+  function handleEditorChange(newValue, iValue) {
+    let copyValues = [...values];
+    copyValues[iValue] = newValue;
+    setValues(copyValues);
   }
 
   return (
     <div className="App">
       <h1>GET and POST requests with Express</h1>
       Method:{" "}
-      <select onChange={e => setMethod(e.target.value)}>
+      <select value={method} onChange={e => setMethod(e.target.value)}>
         <option value="get">GET</option>
         <option value="post">POST</option>
       </select>
-      {values.map((value, i) => (
+      <br />
+      Examples:{" "}
+      <button onClick={() => setValues(initialValues1)}>
+        Fruits and vegetables
+      </button>{" "}
+      <button
+        onClick={() => {
+          setValues(initialValues2);
+          setMethod("post");
+        }}
+      >
+        Username and password
+      </button>
+      {/* {values.map((value, i) => (
         <div key={i}>
           Value {i}:{" "}
           <input
@@ -36,26 +78,42 @@ function App() {
           />{" "}
           <br />
         </div>
-      ))}
+      ))} */}
       <hr />
+      {/* ----- Step 1 ----- */}
       <h2>Step 1: display the form</h2>
       <div className="row row--3">
-        <Editor>{`// File app.js
+        <Editor
+          fileName="app.js"
+          values={values}
+          iValueSelected={iValueSelected}
+          onSelect={handleSelect}
+          onChange={handleEditorChange}
+        >
+          {`
 // ...
 
 app.get("/", (req,res,next) => {
-  res.render("index")
+  res.render("$7")
 })
 
-// ...`}</Editor>
+// ...`}
+        </Editor>
 
-        <Editor language="html">{`{{!-- File views/index.hbs --}}
-
-<form action="/${values[0]}" method="${method.toUpperCase()}">
-  <input type="text" name="${values[1]}" /><br />
-  <input type="text" name="${values[2]}" /><br />
+        <Editor
+          fileName={`views/$7.hbs`}
+          values={values}
+          iValueSelected={iValueSelected}
+          onSelect={handleSelect}
+          onChange={handleEditorChange}
+        >
+          {`
+<form action="/$0" method="${method.toUpperCase()}">
+  <input type="text" name="$1" /><br />
+  <input type="$9" name="$2" /><br />
   <button>Submit</button>
-</form>`}</Editor>
+</form>`}
+        </Editor>
         <Browser url="http://localhost:3000/">
           <input
             type="text"
@@ -64,7 +122,7 @@ app.get("/", (req,res,next) => {
           />
           <br />
           <input
-            type="text"
+            type={values[9]}
             value={values[4]}
             onChange={e => handleChange(e.target.value, 4)}
           />
@@ -73,33 +131,49 @@ app.get("/", (req,res,next) => {
         </Browser>
       </div>
       <hr />
+      {/* ----- Step 2 ----- */}
       <h2>Step 2: handle the form submission</h2>
       <div className="row row--3">
-        <Editor>{`// File app.js
+        <Editor
+          fileName="app.js"
+          values={values}
+          iValueSelected={iValueSelected}
+          onSelect={handleSelect}
+          onChange={handleEditorChange}
+        >
+          {`
 // ...
 
-app.${method}("/${values[0]}", (req,res,next) => {
-  console.log(req.${method === "get" ? "query" : "body"}.${values[1]}) // => "${
-          values[3]
-        }"
-  console.log(req.${method === "get" ? "query" : "body"}.${values[2]}) // => "${
-          values[4]
-        }"
-  res.render("result", {
-    ${values[5]}: req.${method === "get" ? "query" : "body"}.${values[1]},
-    ${values[6]}: req.${method === "get" ? "query" : "body"}.${values[2]},
+app.${method}("/$0", (req,res,next) => {
+  console.log(req.${method === "get" ? "query" : "body"}.$1) // => "${
+            values[3]
+          }"
+  console.log(req.${method === "get" ? "query" : "body"}.$2) // => "${
+            values[4]
+          }"
+  res.render("$8", {
+    $5: req.${method === "get" ? "query" : "body"}.$1},
+    $6: req.${method === "get" ? "query" : "body"}.$2},
   })
 })
 
-// ...`}</Editor>
+// ...`}
+        </Editor>
 
-        <Editor language="html">{`{{!-- File views/result.hbs --}}
-
+        <Editor
+          fileName={`views/$8.hbs`}
+          values={values}
+          iValueSelected={iValueSelected}
+          onSelect={handleSelect}
+          onChange={handleEditorChange}
+        >
+          {`
 You typed 2 values: 
 <ul>
-  <li>{{${values[5]}}}</li>
-  <li>{{${values[6]}}}</li>
-</ul>`}</Editor>
+  <li>{{$5}}}</li>
+  <li>{{$6}}}</li>
+</ul>`}
+        </Editor>
 
         <Browser
           url={
