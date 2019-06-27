@@ -29,7 +29,7 @@ function App() {
     "login",
     "password"
   ];
-  const [values, setValues] = useState(initialValues2);
+  const [values, setValues] = useState(initialValues1);
   // When iValueSelected is equal to 42, then the values[42] is selected (red)
   const [iValueSelected, setIValueSelected] = useState(null);
 
@@ -68,6 +68,8 @@ function App() {
       >
         Username and password
       </button>
+      <br/>
+      <p>You can choose different options and change the code to see the effects!</p>
       {/* {values.map((value, i) => (
         <div key={i}>
           Value {i}:{" "}
@@ -177,11 +179,10 @@ You typed 2 values:
 
         <Browser
           url={
-            method === "get"
-              ? `http://localhost:3000/${values[0]}?${values[1]}=${values[3]}&${
-                  values[2]
-                }=${values[4]}`
-              : `http://localhost:3000`
+            `http://localhost:3000/${values[0]}` +
+            (method === "get"
+              ? `?${values[1]}=${values[3]}&${values[2]}=${values[4]}`
+              : ``)
           }
         >
           You typed 2 values:
