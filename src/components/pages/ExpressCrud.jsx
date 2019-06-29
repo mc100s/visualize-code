@@ -70,6 +70,29 @@ function ExpressCrud() {
     "country",
     "country-detail",
     "country",
+    "add-country",
+    "add-country",
+    "add-country",
+    "name",
+    "capital",
+    "population",
+    "createdCountry",
+    "edit-country",
+    "delete-country",
+    "edit-country",
+    "edit-country",
+    "country",
+    "countryId",
+    "country",
+    "countryId",
+    "name",
+    "capital",
+    "population",
+    "createdCountry",
+    "countryId",
+    "countryDeleted",
+    "",
+    "",
     ""
   ];
   let initialValues2 = [];
@@ -95,11 +118,19 @@ function ExpressCrud() {
           {`
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const path = require("path");
+
 const app = express();
 
 mongoose
   .connect("mongodb://localhost/$15", { useNewUrlParser: true })
   .then(x => { console.log("Connected to the database '$15'"); })
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "hbs");
 
 // ...
 
@@ -196,6 +227,7 @@ module.exports = router;
         <Editor {...defaultEditorProps} fileName={`views/$12.hbs`}>
           {`
 <h3>List</h3>
+
 <ul>
   {{#each $10}}
   <li>
@@ -203,6 +235,8 @@ module.exports = router;
   </li>
   {{/each}}
 </ul>
+
+<a href="/$29">Add a new item</a>
 `}
         </Editor>
         <Browser url={`http://localhost:3000/${values[11]}`}>
@@ -233,6 +267,9 @@ module.exports = router;
               </a>
             </li>
           </ul>
+          <a onClick={e => e.preventDefault()} href={"/" + values[29]}>
+            Add a new item
+          </a>
         </Browser>
       </div>
       <hr />
@@ -264,22 +301,180 @@ module.exports = router;
         <Editor {...defaultEditorProps} fileName={`views/$27.hbs`}>
           {`
 <h3>Detail</h3>
-- {{this.$3}} <br />
-- {{this.$4}} <br />
-- {{this.$5}} <br />
+
+- {{$28.$3}} <br />
+- {{$28.$4}} <br />
+- {{$28.$5}} <br />
+<br />
+
+<a href="/$36/{{$28._id}}">Edit item</a><br />
+<a href="/$37/{{$28._id}}">Delete item</a>
+
 `}
         </Editor>
-        <Browser url={`http://localhost:3000/${values[13]}/52cdef7e4bab8bd67529bd00`}>
-          <h3>Detail</h3>
-          - {values[16]} <br/>
-          - {values[17]} <br/>
-          - {values[18]} <br/>
+        <Browser
+          url={`http://localhost:3000/${values[13]}/52cdef7e4bab8bd67529bd00`}
+        >
+          <h3>Detail</h3>- {values[16]} <br />- {values[17]} <br />-{" "}
+          {values[18]} <br />
+          <br />
+          <a href="#">Edit item</a>
+          <br />
+          <a href="#">Delete item</a>
         </Browser>
       </div>
-      <br />
-      <br />
-      <br />
-      <br />
+      <hr />
+      <h2>Create: Add one {values[1].toLocaleLowerCase()}</h2>
+      <div className="row row--3">
+        <Editor {...defaultEditorProps} fileName={`routes/$0.js`}>
+          {`
+const express = require("express");
+const $1 = require("../models/$1");
+
+const router = express.Router();
+
+// ...
+
+// Route to display a form
+router.get("/$29", (req, res, next) => {
+  res.render("$30");
+});
+
+// Route to handle the form
+router.post("/$31", (req, res, next) => {
+  $1.create({
+    $3: req.body.$32,
+    $4: req.body.$33,
+    $5: req.body.$34,
+  })
+    .then($35 => {
+      // Redirect to the detail page of the country
+      res.redirect("/$13/$35._id");
+    });
+});
+
+// ...
+
+module.exports = router;
+`}
+        </Editor>
+        <Editor {...defaultEditorProps} fileName={`views/$30.hbs`}>
+          {`
+<h3>Add a new item</h3>
+
+<form action="/$31" method="post">
+  <input type="text" name="$32"><br>
+  <input type="text" name="$33"><br>
+  <input type="text" name="$34"><br>
+  <button>Add</button>
+</form>
+`}
+        </Editor>
+        <Browser url={`http://localhost:3000/${values[29]}`}>
+          <h3>Add a new item</h3>
+
+          <input type="text" />
+          <br />
+          <input type="text" />
+          <br />
+          <input type="text" />
+          <br />
+          <button>Add</button>
+        </Browser>
+      </div>
+      <hr />
+      <h2>Update: Edit one {values[1].toLocaleLowerCase()}</h2>
+      <div className="row row--3">
+        <Editor {...defaultEditorProps} fileName={`routes/$0.js`}>
+          {`
+const express = require("express");
+const $1 = require("../models/$1");
+
+const router = express.Router();
+
+// ...
+
+// Route to display a form
+router.get("/$36/:$41", (req, res, next) => {
+  $1.findById(req.params.$41)
+    .then($42 => {
+      res.render("$38", { 
+        $40: $42
+      });
+    })
+});
+
+// Route to handle the form
+router.post("/$39/:$43", (req, res, next) => {
+  Country.findByIdAndUpdate(req.params.$43, {
+    $3: req.body.$44,
+    $4: req.body.$45,
+    $5: req.body.$46,
+  })
+    .then($47 => {
+      // Redirect to the detail page of the country
+      res.redirect("/$13/$47._id");
+    });
+});
+
+// ...
+
+module.exports = router;
+`}
+        </Editor>
+        <Editor {...defaultEditorProps} fileName={`views/$38.hbs`}>
+          {`
+<h3>Edit the item</h3>
+
+<form action="/$39/{{$40._id}}" method="post">
+  <input type="text" name="$44" value="{{country.$3}}"><br>
+  <input type="text" name="$45" value="{{country.$4}}"><br>
+  <input type="text" name="$46" value="{{country.$5}}"><br>
+  <button>Edit</button>
+</form>
+`}
+        </Editor>
+        <Browser
+          url={`http://localhost:3000/${values[36]}/52cdef7e4bab8bd67529bd00`}
+        >
+          <h3>Edit the item</h3>
+
+          <input type="text" readOnly value={values[16]} />
+          <br />
+          <input type="text" readOnly value={values[17]} />
+          <br />
+          <input type="text" readOnly value={values[18]} />
+          <br />
+          <button>Edit</button>
+        </Browser>
+      </div>
+      <hr />
+      <h2>Delete: Remove one {values[1].toLocaleLowerCase()}</h2>
+      <div className="row row--3">
+        <Editor {...defaultEditorProps} fileName={`routes/$0.js`}>
+          {`
+const express = require("express");
+const $1 = require("../models/$1");
+
+const router = express.Router();
+
+// ...
+
+router.get("/$37/:$48", (req, res, next) => {
+  $1.findByIdAndDelete(req.params.$48)
+    .then($49 => {
+      // Redirect to the list after deleting
+      res.redirect("/$11");
+    })
+});
+
+// ...
+
+module.exports = router;
+`}
+        </Editor>
+      </div>
+      <hr />
       {/* <ul>
         <li>
           <pre style={{ margin: 0 }}>$i => ${iValueSelected}</pre>
@@ -292,15 +487,6 @@ module.exports = router;
           </li>
         ))}
       </ul> */}
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
     </div>
   );
 }
