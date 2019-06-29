@@ -111,7 +111,6 @@ a {
 .window__content {
   padding: 10px;
 }
-
 .window__sub-header {
   border-bottom: 2px solid #e0e0e0;
 }
@@ -125,18 +124,15 @@ a {
   width: calc(100% - 40px);
   display: block;
 }
-
 .window--text-editor {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
   font-size: 0.8em;
   white-space: pre;
 }
-
 .window__content--text-editor {
   overflow-y: scroll;
 }
-
 .window__filename {
   margin: 5px 10px 0 10px;
   padding: 0 12px;
@@ -144,6 +140,29 @@ a {
   background-color: white;
   display: flex;
   align-items: center;
+}
+.window__actions {
+  margin: 0 10px;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.hoverable {
+  position: relative;
+}
+.hoverable__tooltip {
+  position: absolute;
+  background-color: rgba(0,0,0,0.8);
+  color: white;
+  height: 25px;
+  top: -30px;
+  line-height: 25px;
+  padding: 0 10px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border-radius: 5px;
 }
 
 .row {
@@ -172,6 +191,6 @@ a {
   }
 }
 
-.App {
-  /* margin: 10px; */
+.comment-text {
+  color: green;
 }
