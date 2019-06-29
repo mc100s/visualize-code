@@ -4,6 +4,7 @@
 
 html {
   font-size: 16px;
+  overflow-x: hidden;
 }
 
 body {
@@ -140,6 +141,8 @@ a {
   background-color: white;
   display: flex;
   align-items: center;
+  max-width: 80%;
+  overflow-x: scroll;
 }
 .window__actions {
   margin: 0 10px;
@@ -154,7 +157,7 @@ a {
 }
 .hoverable__tooltip {
   position: absolute;
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(0, 0, 0, 0.8);
   color: white;
   height: 25px;
   top: -30px;
@@ -186,8 +189,7 @@ a {
 
 @media (max-width: 800px) {
   .row--3 > * {
-    max-width: 100%;
-    width: 100%;
+    width: calc(100% - 2 * 10px);
   }
 }
 

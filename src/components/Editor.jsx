@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClone } from "@fortawesome/free-regular-svg-icons";
 import copy from "clipboard-copy";
-import Hoverable from './Hoverable'
+import Hoverable from "./Hoverable";
 
 export default function Editor({
   fileName,
@@ -26,7 +26,6 @@ export default function Editor({
         let value = values[index];
         if (!withInput) {
           res.push(value);
-          console.log("TCL: value", value);
         } else {
           res.push(
             <input
@@ -48,25 +47,58 @@ export default function Editor({
     // Part 2: wrap the comments with a <span class="comment-text">...</span>
     if (withInput) {
       for (let i = 0; i < res.length; i++) {
-        if (typeof res[i] === "string" && res[i].includes('// ')) {
+        if (typeof res[i] === "string" && res[i].includes("// ")) {
           // let indexOfComments = res[i].indexOf('// ')
           // res.splice(i, 1, res[i].substr(0, indexOfComments), <span class="comment-text">//</span>, res[i].substr(indexOfComments+2))
           // i++
 
-          let match = res[i].match(/\/\/ .*/)
-          let indexOfComment = match.index
-          let textOfComment = match[0]
-          let lengthOfComment = textOfComment.length
-          res.splice(i, 1, res[i].substr(0, indexOfComment), <span class="comment-text">{textOfComment}</span>, res[i].substr(indexOfComment+lengthOfComment))
-          i++
+          let match = res[i].match(/\/\/ .*/);
+          let indexOfComment = match.index;
+          let textOfComment = match[0];
+          let lengthOfComment = textOfComment.length;
+          res.splice(
+            i,
+            1,
+            res[i].substr(0, indexOfComment),
+            <span class="comment-text">{textOfComment}</span>,
+            res[i].substr(indexOfComment + lengthOfComment)
+          );
+          i++;
         }
       }
     }
 
     return res;
   }
-  function handleCopyClick() {
+  function handleCopyToClipboardClick() {
     copy(convertStringWith$ToArray(children, false).join(""));
+  }
+  function handleCopyTextEditor(e) {
+    let textToCopy = "";
+
+    let node = window.getSelection().baseNode;
+    let shouldContinue = true;
+    while (shouldContinue) {
+      let start = 0;
+      let end = undefined;
+      if (node === window.getSelection().baseNode) {
+        start = window.getSelection().baseOffset;
+      }
+      if (node === window.getSelection().extentNode) {
+        end = window.getSelection().extentOffset;
+        shouldContinue = false;
+      }
+      textToCopy += (node.textContent || node.value || "").substring(
+        start,
+        end
+      );
+      node = node.nextSibling;
+      if (!node) {
+        shouldContinue = false;
+      }
+    }
+
+    copy(textToCopy);
   }
 
   return (
@@ -77,11 +109,17 @@ export default function Editor({
         </div>
         <div className="window__actions">
           <Hoverable hoverText="Copy" hoverTextAfterClick="Copied!">
-            <FontAwesomeIcon icon={faClone} onClick={handleCopyClick} />
+            <FontAwesomeIcon
+              icon={faClone}
+              onClick={handleCopyToClipboardClick}
+            />
           </Hoverable>
         </div>
       </div>
-      <div className="window__content window__content--text-editor">
+      <div
+        className="window__content window__content--text-editor"
+        onCopy={handleCopyTextEditor}
+      >
         {convertStringWith$ToArray(children)}
       </div>
     </div>

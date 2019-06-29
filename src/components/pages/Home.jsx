@@ -21,7 +21,9 @@ export default class Home extends Component {
         {/* <p>TODO</p>
         <ul>
           <li>Add a symbol next to the file name</li>
+          <li>Copy paste character by character</li>
           <li>Have a list of possible values for some fields</li>
+          <li>Add a database view for simple CRUD</li>
         </ul> */}
       </div>
     );

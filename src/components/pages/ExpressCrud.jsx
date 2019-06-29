@@ -112,6 +112,16 @@ function ExpressCrud() {
   return (
     <div className="">
       <h1>Simple Express CRUD</h1>
+      <p>This is an example of a simple Express app doing CRUD operations on 1 model named "{values[1]}".</p>
+      <p>Feel free to change the name of the variables and see .</p>
+      <p>Technologies used:</p>
+      <ul>
+        <li>Express</li>
+        <li>MongoDB</li>
+        <li>Mongooose</li>
+        <li>Handlebars</li>
+      </ul>
+      <hr/>
       <h2>Setup</h2>
       <div className="row row--3">
         <Editor {...defaultEditorProps} fileName={`app.js`}>
