@@ -1,3 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -7,8 +15,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code, pre {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+code,
+pre {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
   font-size: 0.8em;
 }
 
@@ -17,6 +27,41 @@ hr {
   border: 0px solid black;
 }
 
+a {
+  color: #51a3ff;
+  text-decoration: none;
+}
+
+.navbar {
+  background-color: #282b35;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+}
+
+.navbar__link {
+  color: white;
+  text-decoration: none;
+  margin: 10px;
+}
+.navbar__link:first-child {
+  margin-left: 0;
+}
+.navbar__link:last-child {
+  margin-right: 0;
+}
+.navbar__link--main {
+  font-weight: bold;
+  margin-right: auto;
+}
+.navbar__link--active {
+  font-weight: bold;
+}
+
+.container {
+  padding: 15px;
+}
 
 .editor {
   border: 1px solid black;
@@ -26,10 +71,9 @@ hr {
   overflow-y: scroll;
 }
 
-
-
 .editor__input {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
   display: inline;
   font-weight: bold;
   border: 0px solid #eee;
@@ -82,8 +126,9 @@ hr {
   display: block;
 }
 
-.window--text-editor{
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+.window--text-editor {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
   font-size: 0.8em;
   white-space: pre;
 }
@@ -99,7 +144,6 @@ hr {
   background-color: white;
   display: flex;
   align-items: center;
-  /* TODO */
 }
 
 .row {
@@ -113,10 +157,13 @@ hr {
   flex-grow: 1;
 }
 
-.row--3 > * {
-  max-width: 33.3%;
+.row--2 > * {
+  width: calc(100% / 2 - 2 * 10px);
 }
 
+.row--3 > * {
+  width: calc(100% / 3 - 2 * 10px);
+}
 
 @media (max-width: 800px) {
   .row--3 > * {
@@ -125,7 +172,6 @@ hr {
   }
 }
 
-
 .App {
-  margin: 10px;
+  /* margin: 10px; */
 }
