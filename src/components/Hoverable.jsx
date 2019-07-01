@@ -24,7 +24,7 @@ export default function Hoverable({
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
     >
-      {isHovered && hoverText && (
+      {isHovered && ((hoverText && !isClicked) || (hoverTextAfterClick && isClicked)) && (
         <div className="hoverable__tooltip">
           {isClicked ? hoverTextAfterClick : hoverText}
         </div>

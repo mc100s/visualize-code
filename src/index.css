@@ -154,18 +154,23 @@ a {
 
 .hoverable {
   position: relative;
+  display: inline-block;
 }
 .hoverable__tooltip {
+  text-align: center;
   position: absolute;
   background-color: rgba(0, 0, 0, 0.8);
   color: white;
-  height: 25px;
-  top: -30px;
-  line-height: 25px;
-  padding: 0 10px;
+  /* height: 25px; */
+  top: -5px;
+  /* line-height: 25px; */
+  padding: 7px 10px;
   left: 50%;
-  transform: translate(-50%, 0);
+  transform: translate(-50%, -100%);
   border-radius: 5px;
+  width: max-content;
+  max-width: 120px;
+  word-wrap: break-word;
 }
 
 .row {
@@ -195,4 +200,36 @@ a {
 
 .comment-text {
   color: green;
+}
+
+.table {
+  border-collapse: collapse;
+}
+.table thead {
+  background-color: #282b35;
+  color: white;
+}
+.table td,
+.table th {
+  padding: 5px;
+}
+.table tr:hover {
+  background-color: #282b3513;
+}
+
+.link-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  display: inline;
+  margin: 0;
+  padding: 0;
+  color: #51a3ff;
+  text-decoration: none;
+  font-size: 1em;
+}
+.link-button:hover,
+.link-button:focus {
+  text-decoration: none;
 }

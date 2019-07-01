@@ -60,7 +60,9 @@ export default function Editor({
             i,
             1,
             res[i].substr(0, indexOfComment),
-            <span class="comment-text">{textOfComment}</span>,
+            <span className="comment-text" key={"split" + i}>
+              {textOfComment}
+            </span>,
             res[i].substr(indexOfComment + lengthOfComment)
           );
           i++;

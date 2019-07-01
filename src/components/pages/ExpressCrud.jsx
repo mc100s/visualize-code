@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import pluralize from "pluralize";
+import dashify from "dashify";
 import Browser from "../Browser";
 import Editor from "../Editor";
+import Hoverable from "../Hoverable";
 
 function ExpressCrud() {
-  function handleChange(newValue, i) {
-    setValues(values.map((value, j) => (i === j ? newValue : value)));
-  }
   function handleSelect(i) {
     setIValueSelected(i);
   }
@@ -37,8 +36,61 @@ function ExpressCrud() {
         ", "
       )}, ... (more info here: https://mongoosejs.com/docs/schematypes.html)`;
   }
+  function quickChangeForModel(e) {
+    let newModelValue = e.target.value;
+    let lowerValue =
+      newModelValue.toLocaleLowerCase()[0] + newModelValue.substr(1);
+    let copyValues = [...values];
+    copyValues[1] = newModelValue;
+    copyValues[2] = lowerValue + "Schema";
+    copyValues[9] = pluralize(lowerValue);
+    copyValues[10] = pluralize(lowerValue);
+    copyValues[11] = dashify(pluralize(lowerValue));
+    copyValues[12] = dashify(pluralize(lowerValue));
+    copyValues[13] = pluralize(lowerValue);
+    copyValues[27] = dashify(lowerValue) + "-detail";
+    copyValues[25] = lowerValue + "Id";
+    copyValues[26] = lowerValue;
+    copyValues[28] = lowerValue;
+    copyValues[29] = "add-" + dashify(lowerValue);
+    copyValues[30] = "add-" + dashify(lowerValue);
+    copyValues[31] = "add-" + dashify(lowerValue);
+    copyValues[35] = lowerValue;
+    copyValues[36] = "edit-" + dashify(lowerValue);
+    copyValues[37] = "delete-" + dashify(lowerValue);
+    copyValues[38] = "edit-" + dashify(lowerValue);
+    copyValues[39] = "edit-" + dashify(lowerValue);
+    copyValues[40] = lowerValue;
+    copyValues[41] = lowerValue + "Id";
+    copyValues[42] = lowerValue;
+    copyValues[43] = lowerValue + "Id";
+    copyValues[47] = lowerValue;
+    copyValues[48] = lowerValue + "Id";
+    copyValues[49] = lowerValue;
 
-  const [method, setMethod] = useState("get");
+    // copyValues[16] = France
+    // copyValues[17] = Paris
+    // copyValues[18] = 67000000
+    // copyValues[19] = Germany
+    // copyValues[20] = Berlin
+    // copyValues[21] = 83000000
+    // copyValues[22] = Portugal
+    // copyValues[23] = Lisbon
+    // copyValues[24] = 10000000
+    setValues(copyValues);
+  }
+  function quickChangeForField(nField, e) {
+    let copyValues = [...values];
+    copyValues[nField + 2] = e.target.value;
+    copyValues[nField + 31] = e.target.value;
+    copyValues[nField + 43] = e.target.value;
+    setValues(copyValues);
+  }
+  function quickChangeForValue(iValue, e) {
+    let copyValues = [...values];
+    copyValues[iValue] = e.target.value;
+    setValues(copyValues);
+  }
 
   let initialValues1 = [
     "index",
@@ -95,7 +147,6 @@ function ExpressCrud() {
     "",
     ""
   ];
-  let initialValues2 = [];
   const [values, setValues] = useState(initialValues1);
   // When iValueSelected is equal to 42, then the values[42] is selected (red)
   const [iValueSelected, setIValueSelected] = useState(null);
@@ -112,7 +163,10 @@ function ExpressCrud() {
   return (
     <div className="">
       <h1>Simple Express CRUD</h1>
-      <p>This is an example of a simple Express app doing CRUD operations on 1 model named "{values[1]}".</p>
+      <p>
+        This is an example of a simple Express app doing CRUD operations on 1
+        model named "{values[1]}".
+      </p>
       <p>Feel free to change the name of the variables and see .</p>
       <p>Technologies used:</p>
       <ul>
@@ -121,7 +175,101 @@ function ExpressCrud() {
         <li>Mongooose</li>
         <li>Handlebars</li>
       </ul>
-      <hr/>
+      <p>
+        If you want a quick tool to generate CRUD operations for your, you can
+        modify the following values:
+      </p>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Field</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Model name (should be capitalized and singular)</td>
+            <td>
+              <input
+                type="text"
+                value={values[1]}
+                onChange={quickChangeForModel}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Database name</td>
+            <td>
+              <input
+                type="text"
+                value={values[15]}
+                onChange={e => quickChangeForValue(15, e)}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Field 1</td>
+            <td>
+              <input
+                type="text"
+                value={values[3]}
+                onChange={e => quickChangeForField(1, e)}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Field 2</td>
+            <td>
+              <input
+                type="text"
+                value={values[4]}
+                onChange={e => quickChangeForField(2, e)}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Field 3</td>
+            <td>
+              <input
+                type="text"
+                value={values[5]}
+                onChange={e => quickChangeForField(3, e)}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Type field 1</td>
+            <td>
+              <input
+                type="text"
+                value={values[6]}
+                onChange={e => quickChangeForValue(6, e)}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Type field 2</td>
+            <td>
+              <input
+                type="text"
+                value={values[7]}
+                onChange={e => quickChangeForValue(7, e)}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Type field 3</td>
+            <td>
+              <input
+                type="text"
+                value={values[8]}
+                onChange={e => quickChangeForValue(8, e)}
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
       <h2>Setup</h2>
       <div className="row row--3">
         <Editor {...defaultEditorProps} fileName={`app.js`}>
@@ -252,34 +400,28 @@ module.exports = router;
         <Browser url={`http://localhost:3000/${values[11]}`}>
           <h3>List</h3>
           <ul>
-            <li>
-              <a
-                onClick={e => e.preventDefault()}
-                href="/$13/52cdef7e4bab8bd67529bd00"
-              >
-                {values[16]}
-              </a>
-            </li>
-            <li>
-              <a
-                onClick={e => e.preventDefault()}
-                href="/$13/52cdef7e4bab8bd67529bd01"
-              >
-                {values[19]}
-              </a>
-            </li>
-            <li>
-              <a
-                onClick={e => e.preventDefault()}
-                href="/$13/52cdef7e4bab8bd67529bd01"
-              >
-                {values[22]}
-              </a>
-            </li>
+            {[0, 1, 2].map(n => (
+              <li key={n}>
+                <Hoverable
+                  hoverTextAfterClick={
+                    "Redirect to http://localhost:3000/" +
+                    values[13 + n * 3] +
+                    "/52cdef7e4bab8bd67529bd0" +
+                    n
+                  }
+                >
+                  <button className="link-button">{values[16 + n * 3]}</button>
+                </Hoverable>
+              </li>
+            ))}
           </ul>
-          <a onClick={e => e.preventDefault()} href={"/" + values[29]}>
-            Add a new item
-          </a>
+          <Hoverable
+            hoverTextAfterClick={
+              "Redirect to http://localhost:3000/" + values[29]
+            }
+          >
+            <button className="link-button">Add a new item</button>
+          </Hoverable>
         </Browser>
       </div>
       <hr />
@@ -328,9 +470,21 @@ module.exports = router;
           <h3>Detail</h3>- {values[16]} <br />- {values[17]} <br />-{" "}
           {values[18]} <br />
           <br />
-          <a href="#">Edit item</a>
+          <Hoverable
+            hoverTextAfterClick={`Redirect to http://localhost:3000/${
+              values[36]
+            }/52cdef7e4bab8bd67529bd00`}
+          >
+            <button className="link-button">Edit item</button>
+          </Hoverable>
           <br />
-          <a href="#">Delete item</a>
+          <Hoverable
+            hoverTextAfterClick={`Delete the item and redirect to http://localhost:3000/${
+              values[12]
+            }`}
+          >
+            <button className="link-button">Delete item</button>
+          </Hoverable>
         </Browser>
       </div>
       <hr />
@@ -358,8 +512,8 @@ router.post("/$31", (req, res, next) => {
     $5: req.body.$34,
   })
     .then($35 => {
-      // Redirect to the detail page of the country
-      res.redirect("/$13/$35._id");
+      // Redirect to the detail page of the item
+      res.redirect("/$13/" + $35._id);
     });
 });
 
@@ -389,7 +543,11 @@ module.exports = router;
           <br />
           <input type="text" />
           <br />
-          <button>Add</button>
+          <Hoverable
+            hoverTextAfterClick={`Add the item and go to its detail page`}
+          >
+            <button>Add</button>
+          </Hoverable>
         </Browser>
       </div>
       <hr />
@@ -416,14 +574,14 @@ router.get("/$36/:$41", (req, res, next) => {
 
 // Route to handle the form
 router.post("/$39/:$43", (req, res, next) => {
-  Country.findByIdAndUpdate(req.params.$43, {
+  $1.findByIdAndUpdate(req.params.$43, {
     $3: req.body.$44,
     $4: req.body.$45,
     $5: req.body.$46,
   })
     .then($47 => {
-      // Redirect to the detail page of the country
-      res.redirect("/$13/$47._id");
+      // Redirect to the detail page of the item
+      res.redirect("/$13/" + $47._id);
     });
 });
 
@@ -437,9 +595,9 @@ module.exports = router;
 <h3>Edit the item</h3>
 
 <form action="/$39/{{$40._id}}" method="post">
-  <input type="text" name="$44" value="{{country.$3}}"><br>
-  <input type="text" name="$45" value="{{country.$4}}"><br>
-  <input type="text" name="$46" value="{{country.$5}}"><br>
+  <input type="text" name="$44" value="{{$40.$3}}"><br>
+  <input type="text" name="$45" value="{{$40.$4}}"><br>
+  <input type="text" name="$46" value="{{$40.$5}}"><br>
   <button>Edit</button>
 </form>
 `}
@@ -455,7 +613,11 @@ module.exports = router;
           <br />
           <input type="text" readOnly value={values[18]} />
           <br />
-          <button>Edit</button>
+          <Hoverable
+            hoverTextAfterClick={`Edit the item and go to its detail page`}
+          >
+            <button>Edit</button>
+          </Hoverable>
         </Browser>
       </div>
       <hr />
