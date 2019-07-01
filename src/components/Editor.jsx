@@ -77,17 +77,17 @@ export default function Editor({
   }
   function handleCopyTextEditor(e) {
     let textToCopy = "";
-
-    let node = window.getSelection().baseNode;
+    let range = window.getSelection().getRangeAt(0);
+    let node = range.startContainer;
     let shouldContinue = true;
     while (shouldContinue) {
       let start = 0;
       let end = undefined;
-      if (node === window.getSelection().baseNode) {
-        start = window.getSelection().baseOffset;
+      if (node === range.startContainer) {
+        start = range.startOffset;
       }
-      if (node === window.getSelection().extentNode) {
-        end = window.getSelection().extentOffset;
+      if (node === range.endContainer) {
+        end = range.endOffset;
         shouldContinue = false;
       }
       textToCopy += (node.textContent || node.value || "").substring(
