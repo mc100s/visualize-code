@@ -42,9 +42,12 @@ a {
 }
 
 .navbar__link {
+  margin: 10px;
+}
+.navbar__link,
+.navbar__link:hover {
   color: white;
   text-decoration: none;
-  margin: 10px;
 }
 .navbar__link:first-child {
   margin-left: 0;
@@ -124,6 +127,7 @@ a {
   margin: 5px auto;
   width: calc(100% - 40px);
   display: block;
+  font-size: 0.8em;
 }
 .window--text-editor {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
@@ -133,6 +137,7 @@ a {
 }
 .window__content--text-editor {
   overflow-y: scroll;
+  line-height: 1.2;
 }
 .window__filename {
   margin: 5px 10px 0 10px;
@@ -171,6 +176,30 @@ a {
   width: max-content;
   max-width: 120px;
   word-wrap: break-word;
+}
+.window__dev-tool-header {
+  font-size: 0.8em;
+  background-color: #ececec;
+  border-top: 2px solid #e0e0e0;
+  border-bottom: 2px solid #e0e0e0;
+  padding: 0px 10px;
+  height: 30px;
+}
+.window__dev-tool-header-item {
+  border-bottom: 2px solid rgb(69, 66, 255);
+  display: inline-flex;
+  align-items: center;
+  height: calc(100% + 2px);
+  position: relative;
+  padding: 0 10px;
+  /* top: 2px; */
+}
+.window__dev-tool-body {
+  white-space: pre-wrap;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+  font-size: 0.8em;
+  padding: 10px;
 }
 
 .row {
@@ -232,4 +261,11 @@ a {
 .link-button:hover,
 .link-button:focus {
   text-decoration: none;
+}
+
+/* Examples */
+.Multiplication {
+  border: 1px solid black;
+  padding: 5px;
+  margin: 10px 0;
 }
